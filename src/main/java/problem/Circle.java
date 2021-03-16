@@ -29,6 +29,11 @@ public class Circle {
      */
     double r;
     /**
+     * пересекается ли окружность с другой окружностью
+     * (является ли она решением)
+     */
+    boolean isSolution = false;
+    /**
      * Конструктор окружности
      */
     Circle(double x, double y, double x1, double y1) {

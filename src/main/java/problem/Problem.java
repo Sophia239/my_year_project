@@ -58,10 +58,16 @@ public class Problem {
      * Решить задачу
      */
     public void solve() {
-        // перебираем пары точек
-        for (Circle p : circles) {
-            for (Circle p2 : circles) {
-                // если точки являются разными
+        // перебираем пары окружностей
+        for (Circle с : circles) {
+            for (Circle с2 : circles) {
+                if (с != с2) {
+                    // расстояние между центрами <= суммы радиусов = пересекаются
+                    if (Math.sqrt(((с2.x - с.x)*(с2.x - с.x) + (с2.y - с.y)*(с2.y - с.y))) < (с.r + с2.r)) {
+                        с.isSolution = true;
+                        с2.isSolution = true;
+                    }
+                }
             }
         }
     }
