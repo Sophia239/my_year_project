@@ -66,17 +66,7 @@ public class Point {
      * @param gl переменная OpenGl для рисования
      */
     void render(GL2 gl) {
-        if (isSolution)
-            gl.glColor3d(1.0, 0.0, 0.0);
-        else
-            switch (setNumber) {
-                case Point.SET_1:
-                    gl.glColor3d(0.0, 1.0, 0.0);
-                    break;
-                case Point.SET_2:
-                    gl.glColor3d(0.0, 0.0, 1.0);
-                    break;
-            }
+        gl.glColor3d(1.0, 0.0, 0.0);
         gl.glPointSize(3);
         gl.glBegin(GL.GL_POINTS);
         gl.glVertex2d(x, y);
