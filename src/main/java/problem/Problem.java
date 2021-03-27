@@ -29,6 +29,11 @@ public class Problem {
     private static final String FILE_NAME = "circles.txt";
 
     /**
+     * путь к файлу ответа
+     */
+    private static final String FILE_NAME2 = "circles2.txt";
+
+    /**
      * список окружностей
      */
     private final ArrayList<Circle> circles;
@@ -66,8 +71,8 @@ public class Problem {
         for (Circle c : circles) {
             for (Circle c2 : circles) {
                 if (c != c2) {
-                    if (Circle.moGetCrossPoints(c, c2).r > max_length) {
-                        max_length = Circle.moGetCrossPoints(c, c2).r;
+                    if (Circle.GetCrossPoints(c, c2).r > max_length) {
+                        max_length = Circle.GetCrossPoints(c, c2).r;
                         max_c = c;
                         max_c2 = c2;
                     }
@@ -78,7 +83,7 @@ public class Problem {
         max_c.color = 1;
         max_c2.color = 1;
         lines.clear();
-        lines.add(Circle.moGetCrossPoints(max_c, max_c2));
+        lines.add(Circle.GetCrossPoints(max_c, max_c2));
     }
 
     /**
@@ -108,9 +113,10 @@ public class Problem {
      */
     public void saveToFile() {
         try {
-            PrintWriter out = new PrintWriter(new FileWriter(FILE_NAME));
-            for (Circle circle : circles) {
-                out.printf("%.2f %.2f %d\n", circle.x, circle.y, circle.x1, circle.y1);
+            PrintWriter out = new PrintWriter(new FileWriter(FILE_NAME2));
+            for (Line line : lines) {
+                out.printf("%.2f %.2f\n", line.x, line.y);
+                out.printf("%.2f %.2f\n", line.x1, line.y1);
             }
             out.close();
         } catch (IOException ex) {

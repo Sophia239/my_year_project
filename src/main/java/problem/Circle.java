@@ -83,7 +83,7 @@ public class Circle {
      *nMargin - tolerance of distance, i.e. if distance between border of circles between -nMargin/2 .. +nMargin/2
      *it counts as one point
      */
-    static Line moGetCrossPoints(Circle oCircle1, Circle oCircle2)
+    static Line GetCrossPoints(Circle oCircle1, Circle oCircle2)
     {
         int count = 0;
         Vector2d pos1;
