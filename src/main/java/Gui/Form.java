@@ -27,9 +27,6 @@ public class Form extends JFrame {
     private JButton addCircle;
     private JTextField x1CircleField;
     private JTextField y1CircleField;
-    private JSlider slider1;
-    private JRadioButton radioButton1;
-    private JRadioButton radioButton2;
     /**
      * таймер
      */
@@ -67,12 +64,7 @@ public class Form extends JFrame {
             }
         });
         // тинициализация таймера, срабатывающего раз в 100 мсек
-        timer = new Timer(100, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onTime();
-            }
-        });
+        timer = new Timer(100, e -> onTime());
         timer.start();
         initWidgets();
     }
@@ -84,49 +76,21 @@ public class Form extends JFrame {
         // задаём текст полю описания задачи
         problemText.setText("<html>" + Problem.PROBLEM_TEXT.replaceAll("\n", "<br>"));
         // делаем первое радио выбранным
-        radioButton1.setSelected(true);
-        radioButton2.setSelected(false);
+        /*radioButton1.setSelected(true);
+        radioButton2.setSelected(false);*/
 
-        addCircle.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                double x = Double.parseDouble(xCircleField.getText());
-                double y = Double.parseDouble(yCircleField.getText());
-                double x1 = Double.parseDouble(x1CircleField.getText());
-                double y1 = Double.parseDouble(y1CircleField.getText());
-                renderer.problem.addCircle(x, y, x1, y1);
-            }
+        addCircle.addActionListener(e -> {
+            double x = Double.parseDouble(xCircleField.getText());
+            double y = Double.parseDouble(yCircleField.getText());
+            double x1 = Double.parseDouble(x1CircleField.getText());
+            double y1 = Double.parseDouble(y1CircleField.getText());
+            renderer.problem.addCircle(x, y, x1, y1);
         });
-        randomBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                renderer.problem.addRandomCircles(Integer.parseInt(circleCntField.getText()));
-            }
-        });
-        loadFromFileBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                renderer.problem.loadFromFile();
-            }
-        });
-        saveToFileBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                renderer.problem.saveToFile();
-            }
-        });
-        clearBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                renderer.problem.clear();
-            }
-        });
-        solveBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                renderer.problem.solve();
-            }
-        });
+        randomBtn.addActionListener(e -> renderer.problem.addRandomCircles(Integer.parseInt(circleCntField.getText())));
+        loadFromFileBtn.addActionListener(e -> renderer.problem.loadFromFile());
+        saveToFileBtn.addActionListener(e -> renderer.problem.saveToFile());
+        clearBtn.addActionListener(e -> renderer.problem.clear());
+        solveBtn.addActionListener(e -> renderer.problem.solve());
     }
 
     /**

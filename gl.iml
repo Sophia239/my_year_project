@@ -47,5 +47,6 @@
     <orderEntry type="library" name="Maven: org.jogamp.jocl:jocl:natives-windows-i586:2.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.jogamp.joal:joal:2.0.2" level="project" />
     <orderEntry type="library" name="Maven: gov.nist.math:jama:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: javax.vecmath:vecmath:1.5.2" level="project" />
   </component>
 </module>

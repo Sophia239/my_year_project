@@ -1,6 +1,5 @@
 package problem;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import java.io.*;
 import java.util.ArrayList;
@@ -30,15 +29,17 @@ public class Problem {
     private static final String FILE_NAME = "circles.txt";
 
     /**
-     * список точек
+     * список окружностей
      */
-    private ArrayList<Circle> circles;
+    private final ArrayList<Circle> circles;
+    private final ArrayList<Line> lines;
 
     /**
      * Конструктор класса задачи
      */
     public Problem() {
         circles = new ArrayList<>();
+        lines = new ArrayList<>();
     }
 
     /**
@@ -59,24 +60,31 @@ public class Problem {
      */
     public void solve() {
         // перебираем пары окружностей
-        for (Circle с : circles) {
-            for (Circle с2 : circles) {
-                if (с != с2) {
-                    // расстояние между центрами <= суммы радиусов = пересекаются
-                    if (Math.sqrt(((с2.x - с.x)*(с2.x - с.x) + (с2.y - с.y)*(с2.y - с.y))) < (с.r + с2.r)) {
-                        с.isSolution = true;
-                        с2.isSolution = true;
+        Circle max_c = null;
+        Circle max_c2 = null;
+        double max_length = 0;
+        for (Circle c : circles) {
+            for (Circle c2 : circles) {
+                if (c != c2) {
+                    if (Circle.moGetCrossPoints(c, c2).r > max_length) {
+                        max_length = Circle.moGetCrossPoints(c, c2).r;
+                        max_c = c;
+                        max_c2 = c2;
                     }
                 }
             }
         }
+        assert max_c != null;
+        max_c.color = 1;
+        max_c2.color = 1;
+        lines.clear();
+        lines.add(Circle.moGetCrossPoints(max_c, max_c2));
     }
 
     /**
      * Загрузить задачу из файла
      */
     public void loadFromFile() {
-        circles.clear();
         try {
             File file = new File(FILE_NAME);
             Scanner sc = new Scanner(file);
@@ -127,6 +135,7 @@ public class Problem {
      */
     public void clear() {
         circles.clear();
+        lines.clear();
     }
 
     /**
@@ -136,7 +145,10 @@ public class Problem {
      */
     public void render(GL2 gl) {
         for (Circle circle : circles) {
-            circle.render(gl);
+            circle.render(gl, circle.color);
+        }
+        for (Line line : lines) {
+            line.render(gl);
         }
     }
 }

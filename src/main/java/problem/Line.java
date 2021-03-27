@@ -35,7 +35,8 @@ public class Line {
         this.y = y;
         this.x1 = x1;
         this.y1 = y1;
-        this.r = Math.sqrt(((x1 - x)*(x1 - x) + (y1 - y)*(y1 - y)));
+        if (x == 0 && x1 == 0 && y == 0 && y1 == 0) this.r = 0;
+        else this.r = Math.sqrt(((x1 - x)*(x1 - x) + (y1 - y)*(y1 - y)));
     }
 
     /**
@@ -47,9 +48,8 @@ public class Line {
         gl.glLineWidth(5);
         gl.glBegin(GL.GL_LINES);
         gl.glColor3d(1.0, 0.5, 0.0);
-        gl.glVertex2d(x, y);
-        gl.glColor3d(0.5, 0.0, 1.0);
         gl.glVertex2d(x1, y1);
+        gl.glVertex2d(x, y);
         gl.glEnd();
     }
 }
